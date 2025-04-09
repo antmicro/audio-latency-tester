@@ -132,6 +132,7 @@ static void vendor_task(struct stream_desc *sd)
 	switch (sd->state) {
 
 	case IDLE:
+	{
 		cfg_packet_t cfg_packet;
 
 		usb_read(&cfg_packet, sizeof(cfg_packet));
@@ -173,9 +174,9 @@ static void vendor_task(struct stream_desc *sd)
 			printf("expected cfg packet!\r\n");
 		}
 		break;
-
+	}
 	case TRANSFER:
-
+	{
 		int rx_len =
 			sd->sample_count *
 			sd->sample_depth *
@@ -187,9 +188,9 @@ static void vendor_task(struct stream_desc *sd)
 
 		sd->state = STREAMING;
 		break;
-
+	}
 	case STREAMING:
-
+	{
 		int buffer_count =  1 + ((sd->sample_count - 1) / (SAMPLES_PER_BUFFER));
 
 		for (int j = 0; j < buffer_count; j++) {
@@ -231,7 +232,7 @@ static void vendor_task(struct stream_desc *sd)
 
 		sd->state = IDLE;
 		break;
-
+	}
 	default:
 
 		printf("unknown state, reverting to idle\r\n");

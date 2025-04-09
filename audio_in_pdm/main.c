@@ -113,6 +113,7 @@ static void vendor_task(struct stream_desc *sd)
 	switch (sd->state) {
 
 	case IDLE:
+	{
 		cfg_packet_t cfg_packet;
 
 		usb_read(&cfg_packet, sizeof(cfg_packet));
@@ -152,8 +153,9 @@ static void vendor_task(struct stream_desc *sd)
 			printf("expected cfg packet!\r\n");
 		}
 		break;
-
+	}
 	case RECORDING:
+	{
 		if (sd->use_trigger) {
 			printf("waiting for rising edge on GPIO%d\r\n", GPIO_TRIGGER_PIN);
 			wait_for_trigger();
@@ -182,9 +184,9 @@ static void vendor_task(struct stream_desc *sd)
 
 		sd->state = TRANSFER;
 		break;
-
+	}
 	case TRANSFER:
-
+	{
 		int tx_len =
 			sd->sample_count *
 			sd->sample_depth *
@@ -217,7 +219,7 @@ static void vendor_task(struct stream_desc *sd)
 
 		sd->state = IDLE;
 		break;
-
+	}
 	default:
 
 		printf("unknown state, reverting to idle\r\n");
