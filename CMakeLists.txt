@@ -13,4 +13,6 @@ if (PICO_SDK_VERSION_STRING VERSION_LESS "2.1.0")
 endif()
 
 add_subdirectory("audio_out")
+add_compile_definitions(AUDIO_CONTROLLER_BOARD)
 add_subdirectory("audio_in_pdm")
+
