@@ -139,10 +139,17 @@ The scripts require libusb, Python3, PyUSB, and sufficient access rights to the 
 
 ### Hardware preparation
 
-The [Microphone board](https://github.com/antmicro/pdm-microphone-board) is a small footprint carrier board for a PDM microphone. Two of these boards can be joined for a stereo configuration.  To select the microphone board's channel consult the figure below:
+The [Microphone board](https://github.com/antmicro/pdm-microphone-board) is a small footprint carrier board for a PDM microphone. Two of these boards can be joined for a stereo configuration. 
+* To select the microphone board's channel consult the figure below:
 
 ![Microphone channel selection](img/microphone-channel-selection.png)
 
+* Connect [microphone boards](https://github.com/antmicro/pdm-microphone-board) to [audio latency tester board](https://github.com/antmicro/audio-latency-tester-board) with a 5 pin, 0.5 mm pitch, same-side flat flexible cable.
+
+
+![Microphone FFC connection](img/connection-audio-microphone-board.png)
+
+* Connect MCU-1 and MCU-2 USB-C to your PC
 ### Audio playback
 
 In order to play an audio file, provide the file as argument to the `audio_playback.py` script:
