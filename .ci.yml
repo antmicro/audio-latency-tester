@@ -1,0 +1,31 @@
+image: debian:bookworm
+
+variables:
+  PICO_SDK_VERSION: 2.1.0
+
+stages:
+  - stylecheck
+  - build
+
+before_script:
+  - apt -y update
+  - apt -y install --no-install-recommends cmake python3 build-essential gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-arm-none-eabi-newlib git ca-certificates black
+
+check-python-formatting:
+  stage: stylecheck
+  script:
+    - black --check --preview --diff *.py
+
+build-rp2040-fw:
+  stage: build
+  script:
+    - git clone --recurse-submodules --depth 1 --branch ${PICO_SDK_VERSION} https://github.com/raspberrypi/pico-sdk.git
+    - git clone --recurse-submodules --depth 1 --branch sdk-${PICO_SDK_VERSION} https://github.com/raspberrypi/pico-extras.git
+    - PICO_SDK_PATH=$(pwd)/pico-sdk PICO_EXTRAS_PATH=$(pwd)/pico-extras cmake -S . -B build
+    - cmake --build build -j$(nproc)
+  artifacts:
+    paths:
+      - build/audio_out/rp2040-i2s-timestamp.elf
+      - build/audio_out/rp2040-i2s-timestamp.uf2
+      - build/audio_in_pdm/rp2040-i2s-timestamp-audio-in.elf
+      - build/audio_in_pdm/rp2040-i2s-timestamp-audio-in.uf2
