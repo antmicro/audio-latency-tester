@@ -132,22 +132,34 @@ Bus 003 Device 012: ID cafe:4011 Raspberry Pi RP2040
 
 ## Usage
 
-In order to use these scripts, you need a proper microcontroller connected via USB for communication.
-You can find the firmware for these devices in the [Audio latency tester board](https://github.com/antmicro/audio-latency-tester-board) repository.
+In order to use these scripts, you need a microcontroller flashed with images from previous step connected via USB for communication.
 
 The scripts require libusb, Python3, PyUSB, and sufficient access rights to the connected USB devices.
 
 ### Hardware preparation
 
-The [Microphone board](https://github.com/antmicro/pdm-microphone-board) is a small footprint carrier board for a PDM microphone. Two of these boards can be joined for a stereo configuration. 
-* To select the microphone board's channel consult the figure below:
+Before proceeding further, it is nessesary to connect the [microphone board](https://github.com/antmicro/pdm-microphone-board) to the [audio latency tester board](https://github.com/antmicro/audio-latency-tester-board).
+The microphone board is a small footprint carrier board for a PDM microphone. Two of these boards can be joined for a stereo configuration (after configuring two microphone boards for a left and right channel)
+* To select the microphone board's channel populate the resistor in one of two orientations. The resulting configuration is marked on the board.
 
 ![Microphone channel selection](img/microphone-channel-selection.png)
 
-* Connect [microphone boards](https://github.com/antmicro/pdm-microphone-board) to [audio latency tester board](https://github.com/antmicro/audio-latency-tester-board) with a 5 pin, 0.5 mm pitch, same-side flat flexible cable.
+* Connect [microphone boards](https://github.com/antmicro/pdm-microphone-board) to [audio latency tester board](https://github.com/antmicro/audio-latency-tester-board) with a 5 pin, 0.5 mm pitch, same-side flat flexible cable. 
 
 
 ![Microphone FFC connection](img/connection-audio-microphone-board.png)
+
+
+The audio latency tester board has two connector for the microphone boards marked as L/R MIC PDM
+
+![J4 J5 connectors](img/J4-J5.png)
+
+* Connect an external speaker to the speaker connector
+
+![J6 J7 connectors](img/J12.png)
+
+* Triger input and outputs can be connected to the J6 and J7 connector. For a detailed pinout please consult the [audio latency tester board](https://github.com/antmicro/audio-latency-tester-board)
+![J6 J7 connectors](img/J6-J7.png)
 
 * Connect MCU-1 and MCU-2 USB-C to your PC
 ### Audio playback
