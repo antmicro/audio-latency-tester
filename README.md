@@ -4,14 +4,17 @@ Copyright (c) 2024-2025 [Antmicro](https://www.antmicro.com)
 
 ## Project overview
 
-The aim of this project is to provide a platform for testing an audio latency of various devices.
+The aim of this project is to provide a platform for measurement and characterization of audio latencies. 
+
 
 The tester suite includes:
-* [Audio latency tester board](https://github.com/antmicro/audio-latency-tester-board)
-* [Microphone board](https://github.com/antmicro/pdm-microphone-board)
-* [Software controller](https://github.com/antmicro/audio-latency-tester)
+* [Audio latency tester board](https://github.com/antmicro/audio-latency-tester-board) responsible for emitting sound with a speaker and collecting audio samples (in various sampling rates) from  a pair of microphones
+* [Microphone board](https://github.com/antmicro/pdm-microphone-board) housing PDM microphone with selectable left or right channel audio output
+* [Software controller](https://github.com/antmicro/audio-latency-tester) providing firmware for the RP2040 MCUs located on board Audio latency tester board as well as host PC application responsible for collecting and sending audio samples
 
 ### Tester suite architecture
+The tester system integrates two microphones, an audio codec, an audio power amplifier and a speaker. These peripherals are driven with two separate RP2040 MCU units that can synchronize via a shared GPIO signal. 
+
 System architecture is presented below:
 
 ![System architecture](img/audio-graph.png)
@@ -140,7 +143,7 @@ The scripts require libusb, Python3, PyUSB, and sufficient access rights to the 
 
 Before proceeding further, it is nessesary to connect the [microphone board](https://github.com/antmicro/pdm-microphone-board) to the [audio latency tester board](https://github.com/antmicro/audio-latency-tester-board).
 The microphone board is a small footprint carrier board for a PDM microphone. Two of these boards can be joined for a stereo configuration (after configuring two microphone boards for a left and right channel)
-* To select the microphone board's channel populate the resistor in one of two orientations. The resulting configuration is marked on the board.
+* To select the microphone board's channel populate the resistor in one of two orientations.
 
 ![Microphone channel selection](img/microphone-channel-selection.png)
 
@@ -150,13 +153,13 @@ The microphone board is a small footprint carrier board for a PDM microphone. Tw
 ![Microphone FFC connection](img/connection-audio-microphone-board.png)
 
 
-The audio latency tester board has two connector for the microphone boards marked as L/R MIC PDM
+The audio latency tester board has two connector for the microphone boards marked as L or R MIC PDM
 
 ![J4 J5 connectors](img/J4-J5.png)
 
 * Connect an external speaker to the speaker connector
 
-![Speaker connectors](img/speaker_conn.png)
+![Speaker connectors](img/speaker-conn.png)
 
 * Triger input and outputs can be connected to the J6 and J7 connector. For a detailed pinout please consult the [audio latency tester board](https://github.com/antmicro/audio-latency-tester-board)
 ![J6 J7 connectors](img/J6-J7.png)
@@ -164,7 +167,7 @@ The audio latency tester board has two connector for the microphone boards marke
 * Connect MCU-1 and MCU-2 USB-C to your PC
 ### Audio playback
 
-In order to play an audio file, provide the file as argument to the `audio_playback.py` script:
+In order to play an audio file, provide a `.wav` file as argument to the `audio_playback.py` script:
 
 ```console
 python3 audio_playback.py <file>
@@ -174,7 +177,7 @@ You can find the timestamps in `timestamps.log`.
 
 ### Audio capture
 
-In order to capture audio and save it to a file, use the `audio_capture.py` script:
+In order to capture audio and save it to a `.wav` file, use the `audio_capture.py` script:
 
 ```console
 python3 audio_capture.py <file>`
