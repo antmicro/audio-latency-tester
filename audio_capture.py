@@ -23,7 +23,9 @@ def main():
     args = parser.parse_args()
 
     timestamps_file = (
-        "timestamps.log" if args.timestamps_file is None else args.timestamps_file
+        "timestamps-capture.log"
+        if args.timestamps_file is None
+        else args.timestamps_file
     )
 
     duration = None if args.duration is None else float(args.duration)

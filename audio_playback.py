@@ -16,7 +16,9 @@ def main():
     args = parser.parse_args()
 
     timestamps_file = (
-        "timestamps.log" if args.timestamps_file is None else args.timestamps_file
+        "timestamps-playback.log"
+        if args.timestamps_file is None
+        else args.timestamps_file
     )
     volume = 2000 if args.volume is None else int(args.volume)
 
