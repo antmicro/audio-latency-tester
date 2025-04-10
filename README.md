@@ -173,7 +173,7 @@ In order to play an audio file, provide a `.wav` file as argument to the `audio_
 python3 audio_playback.py <file>
 ```
 
-You can find the timestamps in `timestamps.log`.
+You can find the timestamps in `timestamps-playback.log`.
 
 ### Audio capture
 
@@ -183,7 +183,7 @@ In order to capture audio and save it to a `.wav` file, use the `audio_capture.p
 python3 audio_capture.py <file>`
 ```
 
-You can find the timestamps in `timestamps.log`.
+You can find the timestamps in `timestamps-capture.log`.
 
 ### Windows 11 support
 
