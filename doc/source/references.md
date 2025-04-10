@@ -13,7 +13,8 @@
 ```
 ```{image} img/J12.png
 :name: J12
-``````{image} img/SW1.png
+```
+```{image} img/SW1.png
 :name: SW1
 ```
 ```{image} img/SW2.png
