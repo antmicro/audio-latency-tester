@@ -156,7 +156,7 @@ The audio latency tester board has two connector for the microphone boards marke
 
 * Connect an external speaker to the speaker connector
 
-![J6 J7 connectors](img/J12.png)
+![Speaker connectors](img/speaker_conn.png)
 
 * Triger input and outputs can be connected to the J6 and J7 connector. For a detailed pinout please consult the [audio latency tester board](https://github.com/antmicro/audio-latency-tester-board)
 ![J6 J7 connectors](img/J6-J7.png)
