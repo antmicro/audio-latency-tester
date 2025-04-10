@@ -1,6 +1,6 @@
 # Usage
 
-In order to use these scripts, you need a microcontroller flashed with images from previous step connected via USB for communication.
+In order to use these scripts, you need a microcontroller flashed with images from [`flashing hardware`](./installation.md#flashing-hardware) section.
 
 The scripts require libusb, Python3, PyUSB, and sufficient access rights to the connected USB devices.
 
