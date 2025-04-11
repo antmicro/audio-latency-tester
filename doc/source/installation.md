@@ -59,7 +59,7 @@ You can find the ELF and UF2 files in:
 In order to flash devices, `picotool` is needed.
 The installation instructions can be found in this [readme](https://github.com/raspberrypi/picotool/blob/master/README.md).
 
-### Running on hardware
+### Flashing firmware to the board
 
 The [Audio latency tester board](https://github.com/antmicro/audio-latency-tester-board) consist of 2 independent RP2040 - one for audio input, other for audio output.
 Each of them has to be flashed with `.uf2` file prepared in the previous chapter.
@@ -85,6 +85,14 @@ MCU-1 USB-C connection
 
 ```console
 picotool load -x build/audio_in_pdm/rp2040-i2s-timestamp-audio-in.uf2
+```
+
+Expected output:
+
+```console
+Loading into Flash:   [==============================]  100%
+
+The device was rebooted to start the application.
 ```
 * With lsusb, you should see that the device is recognized as a USB device with ID `cafe:4010` 
 
