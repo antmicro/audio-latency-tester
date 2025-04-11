@@ -19,6 +19,10 @@ Microphone board channel selection
 * Connect [microphone boards](https://github.com/antmicro/pdm-microphone-board) to [audio latency tester board](https://github.com/antmicro/audio-latency-tester-board) with a 5 pin, 0.5 mm pitch, same-side flat flexible cable:
 
 
+:::{Caution}
+Make sure to disconnect all the power sources from the `audio latency tester board` before plugging or unplugging the microphone boards
+:::
+
 :::{figure-md}
 ![](img/connection-audio-microphone-board.png)
 
@@ -26,6 +30,10 @@ FFC connections
 :::
 
 The audio latency tester board has two connector for the microphone boards:  [`J4`](#J4) and [`J5`](#J5).
+
+:::{Tip}
+To insert the FFC, push the connector's leaver down, insert the FFC and pull the leaver up
+:::
 
 * Connect an external speaker to the speaker connector:
 
