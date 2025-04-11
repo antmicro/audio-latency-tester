@@ -1,14 +1,14 @@
 # Usage
 
-In order to use these scripts, you need a microcontroller flashed with images from [`flashing hardware`](./installation.md#flashing-hardware) section.
+In order to use these scripts, you need a microcontroller flashed with firmware from [`flashing hardware`](./installation.md#flashing-hardware) section.
 
 The scripts require libusb, Python3, PyUSB, and sufficient access rights to the connected USB devices.
 
 ## Hardware preparation
 
 Before proceeding further, it is nessesary to connect the [microphone board](https://github.com/antmicro/pdm-microphone-board) to the [audio latency tester board](https://github.com/antmicro/audio-latency-tester-board).
-The microphone board is a small footprint carrier board for a PDM microphone. Two of these boards can be joined for a stereo configuration (after configuring two microphone boards for a left and right channel)
-* To select the microphone board's channel populate the resistor in one of two orientations.
+The microphone board is a small footprint carrier board for a PDM microphone. Two of these boards can be joined for a stereo setup (after configuring two microphone boards for a left and right channel respectively).
+* To select the microphone board's channel populate the resistor in one of two orientations:
 
 :::{figure-md}
 ![](img/microphone-channel-selection.png)
@@ -16,7 +16,7 @@ The microphone board is a small footprint carrier board for a PDM microphone. Tw
 Microphone board channel selection
 :::
 
-* Connect [microphone boards](https://github.com/antmicro/pdm-microphone-board) to [audio latency tester board](https://github.com/antmicro/audio-latency-tester-board) with a 5 pin, 0.5 mm pitch, same-side flat flexible cable. 
+* Connect [microphone boards](https://github.com/antmicro/pdm-microphone-board) to [audio latency tester board](https://github.com/antmicro/audio-latency-tester-board) with a 5 pin, 0.5 mm pitch, same-side flat flexible cable:
 
 
 :::{figure-md}
@@ -25,9 +25,9 @@ Microphone board channel selection
 FFC connections
 :::
 
-The audio latency tester board has two connector for the microphone boards:  [`J4`](#J4) and [`J5`](#J5)
+The audio latency tester board has two connector for the microphone boards:  [`J4`](#J4) and [`J5`](#J5).
 
-* Connect an external speaker to the speaker connector
+* Connect an external speaker to the speaker connector:
 
 :::{figure-md}
 ![](img/speaker-conn.png)
@@ -35,9 +35,9 @@ The audio latency tester board has two connector for the microphone boards:  [`J
 Speaker connectors
 :::
 
-* Triger input and outputs can be connected to the  [`J6`](#J6) and [`J7`](#J7) connector. For a detailed pinout please consult the [audio latency tester board](https://github.com/antmicro/audio-latency-tester-board)
+* Triger input and outputs can be connected to the  [`J6`](#J6) and [`J7`](#J7) connector. For a detailed pinout please consult the [audio latency tester board](https://github.com/antmicro/audio-latency-tester-board).
 
-* Connect MCU-1 and MCU-2 USB-C to your PC
+* Connect MCU-1 and MCU-2 USB-C to your PC.
 ## Audio playback
 
 In order to play an audio file, provide a `.wav` file as argument to the `audio_playback.py` script:

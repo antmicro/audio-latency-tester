@@ -9,7 +9,7 @@ To install the dependencies on Debian Bookworm, run:
 apt install cmake python3 build-essential gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-arm-none-eabi-newlib libusb-1.0-0-dev
 ```
 
-To run the project it is also required to install `PyUSB`
+To run the project it is also required to install `PyUSB`:
 
 ```sh
 pip install pyusb
@@ -75,11 +75,11 @@ MCU-1 USB-C connection
 :::
 
 
-* Press and hold the `MCU-1 BOOTSEL` ([`SW2`](#SW2)) button 
+* Press and hold the `MCU-1 BOOTSEL` ([`SW2`](#SW2)) button.
 
-* Press and release the `MCU-1 RST` ([`SW1`](#SW1)) button
+* Press and release the `MCU-1 RST` ([`SW1`](#SW1)) button.
 
-* Release the `MCU-1 BOOTSEL`
+* Release the `MCU-1 BOOTSEL`.
 
 * Use `picotool` to flash the device and execute the program immediately:
 
@@ -94,7 +94,7 @@ Bus 003 Device 012: ID cafe:4010 Raspberry Pi RP2040
 
 #### Flashing Audio output firmware
 
-* If still connected - remove the USB-C from previous step
+* If still connected - remove the USB-C from previous step.
 * Connect MCU-2 USB-C (the port labeled as `USB-C Speaker`) to your PC. LEDs should light up.
 
 :::{figure-md}
@@ -104,11 +104,11 @@ MCU-2 USB-C connection
 :::
 
 
-* Press and hold the `MCU-2 BOOTSEL` ([`SW4`](#SW4)) button 
+* Press and hold the `MCU-2 BOOTSEL` ([`SW4`](#SW4)) button. 
 
-* Press and release the `MCU-2 RST` ([`SW3`](#SW3)) button
+* Press and release the `MCU-2 RST` ([`SW3`](#SW3)) button.
 
-* Release the `MCU-2 BOOTSEL`
+* Release the `MCU-2 BOOTSEL`.
 
 * Use `picotool` to flash the device and execute the program immediately:
 

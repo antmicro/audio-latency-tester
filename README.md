@@ -13,4 +13,4 @@ The repository includes:
 * `include/` - Directory with RP2040 USB payload definitions
 * `audio_capture.py` - Python application for a PC host responsible for collecting audio samples
 * `audio_controller.py` - Python module for data transactions
-* `audio_playback.py` - Python application for a PC host responsible for playing audio samples
+* `audio_playback.py` - Python application for a PC host responsible for playing audio samples 
