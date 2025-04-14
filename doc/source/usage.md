@@ -80,16 +80,3 @@ python3 audio_capture.py <file>`
 ```
 
 You can find the timestamps in `timestamps-capture.log`.
-
-## Windows 11 support
-
-In order to run the scripts on Windows 11, additional configuration of the USB devices is required beforehand.
-
-A driver facilitating communication with userspace needs to be configured for the devices. The recommended way to do that by libusb documentation is to use the [Zadig tool](http://zadig.akeo.ie/).
-
-1. Download and run the Zadig tool
-2. In the configuration window, select "RP2040" device from the drop-down list
-3. Make sure the WinUSB driver is selected and press the "Install Driver" button
-
-After the driver installation is completed, AudioController should be able to communicate with the device.
-The configuration needs to be performed separately for audio input and output devices.
