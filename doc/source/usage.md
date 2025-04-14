@@ -54,12 +54,14 @@ Bus 001 Device 021: ID cafe:4011 Raspberry Pi RP2040
 Bus 001 Device 022: ID cafe:4010 Raspberry Pi RP2040
 ```
 
-## Audio playback
+## Scripts usage
 
 Activate the virtual environment
 ```console
 source .venv/bin/activate
 ```
+
+## Audio playback
 
 In order to play an audio file, provide a `.wav` file as argument to the `audio_playback.py` script:
 
@@ -77,11 +79,6 @@ python3 audio_playback.py 1s_44100_2ch_16b.wav
 :::
 
 ## Audio capture
-
-Activate the virtual environment
-```console
-source .venv/bin/activate
-```
 
 In order to capture audio and save it to a `.wav` file, use the `audio_capture.py` script:
 
