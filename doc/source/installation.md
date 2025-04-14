@@ -6,12 +6,14 @@
 To install the dependencies on Debian Bookworm, run:
 
 ```sh
-apt install cmake python3 build-essential gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-arm-none-eabi-newlib libusb-1.0-0-dev
+apt install cmake python3 python3-venv build-essential gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-arm-none-eabi-newlib libusb-1.0-0-dev
 ```
 
 To run the project it is also required to install `PyUSB`:
 
 ```sh
+python3 -m venv .venv
+source .venv/bin/activate
 pip install pyusb
 ```
 
