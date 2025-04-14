@@ -46,6 +46,14 @@ Speaker connectors
 * Triger input and outputs can be connected to the  [`J6`](#J6) and [`J7`](#J7) connector. For a detailed pinout please consult the [audio latency tester board](https://github.com/antmicro/audio-latency-tester-board).
 
 * Connect MCU-1 and MCU-2 USB-C to your PC.
+
+* With `lsusb`, you should see that both the devices are recognized
+
+```console
+Bus 001 Device 021: ID cafe:4011 Raspberry Pi RP2040
+Bus 001 Device 022: ID cafe:4010 Raspberry Pi RP2040
+```
+
 ## Audio playback
 
 In order to play an audio file, provide a `.wav` file as argument to the `audio_playback.py` script:

@@ -45,7 +45,7 @@ cmake -S . -B build
 cmake --build build -j$(nproc)
 ```
 
-You can find the ELF and UF2 files in:
+If build succeeded, following files should be present in build directory:
 
 * `build/audio_out/rp2040-i2s-timestamp.elf`
 * `build/audio_out/rp2040-i2s-timestamp.uf2`
@@ -81,6 +81,13 @@ MCU-1 USB-C connection
 
 * Release the `MCU-1 BOOTSEL`.
 
+* With `lsusb`, you should see that the device is recognized as a USB device `Raspberry Pi RP2 Boot`
+
+```console
+Bus 001 Device 099: ID 2e8a:0003 Raspberry Pi RP2 Boot
+
+```
+
 * Use `picotool` to flash the device and execute the program immediately:
 
 ```console
@@ -94,7 +101,7 @@ Loading into Flash:   [==============================]  100%
 
 The device was rebooted to start the application.
 ```
-* With lsusb, you should see that the device is recognized as a USB device with ID `cafe:4010` 
+* With `lsusb`, you should see that the device is recognized as a USB device with ID `cafe:4010` 
 
 ```console
 Bus 003 Device 012: ID cafe:4010 Raspberry Pi RP2040
@@ -118,12 +125,19 @@ MCU-2 USB-C connection
 
 * Release the `MCU-2 BOOTSEL`.
 
+* With `lsusb`, you should see that the device is recognized as a USB device `Raspberry Pi RP2 Boot`
+
+```console
+Bus 001 Device 101: ID 2e8a:0003 Raspberry Pi RP2 Boot
+
+```
+
 * Use `picotool` to flash the device and execute the program immediately:
 
 ```console
 picotool load -x build/audio_out/rp2040-i2s-timestamp.uf2
 ```
-* With lsusb, you should see that the device is recognized as a USB device with ID `cafe:4011` 
+* With `lsusb`, you should see that the device is recognized as a USB device with ID `cafe:4011` 
 
 ```console
 Bus 003 Device 012: ID cafe:4011 Raspberry Pi RP2040
