@@ -14,3 +14,4 @@ The repository includes:
 * `audio_capture.py` - Python application for a PC host responsible for collecting audio samples
 * `audio_controller.py` - Python module for data transactions
 * `audio_playback.py` - Python application for a PC host responsible for playing audio samples 
+* `1s_44100_2ch_16b.wav` - Example recording of a 439 Hz tone

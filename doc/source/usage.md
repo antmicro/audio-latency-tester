@@ -56,6 +56,13 @@ python3 audio_playback.py <file>
 
 You can find the timestamps in `timestamps-playback.log`.
 
+:::{Tip}
+Play the example audio file with:
+```console
+python3 audio_playback.py 1s_44100_2ch_16b.wav 
+```
+:::
+
 ## Audio capture
 
 In order to capture audio and save it to a `.wav` file, use the `audio_capture.py` script:
