@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <errno.h>
 
 #include <bsp/board.h>
 #include <tusb.h>
@@ -22,9 +23,10 @@
 #define SAMPLES_PER_BUFFER	32
 
 #define RX_DATA_SIZE		(MAX_SAMPLE_COUNT * MAX_CHANNEL_COUNT * MAX_BYTES_PER_SAMPLE)
+#define TIMESTAMPS_ENTRIES	(MAX_SAMPLE_COUNT / SAMPLES_PER_BUFFER)
 
 uint8_t rx_data[RX_DATA_SIZE];
-uint64_t timestamps[MAX_SAMPLE_COUNT / SAMPLES_PER_BUFFER];
+uint64_t timestamps[TIMESTAMPS_ENTRIES];
 
 enum stream_state {
 	IDLE,
@@ -127,6 +129,49 @@ static void trigger_audio_capture()
 	gpio_put(GPIO_TRIGGER_PIN, 1);
 }
 
+static int configure(cfg_packet_t *cfg_packet, struct stream_desc *sd)
+{
+	if (cfg_packet->id != CFG_PACKET_MAGIC_HDR) {
+		return -EBADMSG;
+	}
+
+	printf("Configuration packet received\r\n");
+	printf("stream length (samples): %d\r\n", cfg_packet->sample_count);
+	printf("sample rate (bps): %d\r\n", cfg_packet->sample_rate);
+	printf("sample depth (bits): %d\r\n", cfg_packet->sample_depth);
+	printf("channels_count: %d\r\n", cfg_packet->channels_count);
+	printf("volume multiplier: 0x%x\r\n", cfg_packet->volume_multiplier);
+	printf("use_trigger: %d\r\n", cfg_packet->use_trigger);
+
+	size_t rx_buffer_needed = cfg_packet->sample_count * cfg_packet->sample_depth
+				  * cfg_packet->channels_count;
+
+	size_t timestamps_buffer_needed = 1 + ((cfg_packet->sample_count - 1) / (SAMPLES_PER_BUFFER));
+
+	if (cfg_packet->sample_count == 0
+			|| cfg_packet->sample_rate == 0
+			|| cfg_packet->sample_depth == 0
+			|| cfg_packet->channels_count == 0) {
+		return -ENOTSUP;
+	}
+
+	if (rx_buffer_needed > RX_DATA_SIZE || timestamps_buffer_needed > TIMESTAMPS_ENTRIES) {
+		return -ENOMEM;
+	}
+
+	sd->sample_count = cfg_packet->sample_count;
+	sd->sample_rate = cfg_packet->sample_rate;
+	sd->sample_depth = cfg_packet->sample_depth;
+	sd->channels_count = cfg_packet->channels_count;
+	sd->volume_multiplier = cfg_packet->volume_multiplier;
+	sd->use_trigger = cfg_packet->use_trigger;
+
+	// Update sample rate, cast is needed to override const
+	((struct audio_format *) sd->audio_buffer_pool->format)->sample_freq = sd->sample_rate;
+
+	return 0;
+}
+
 static void vendor_task(struct stream_desc *sd)
 {
 	switch (sd->state) {
@@ -136,41 +181,23 @@ static void vendor_task(struct stream_desc *sd)
 		cfg_packet_t cfg_packet;
 
 		usb_read(&cfg_packet, sizeof(cfg_packet));
+		int configured = configure(&cfg_packet, sd);
 
-		if (cfg_packet.id == CFG_PACKET_MAGIC_HDR) {
-			printf("Configuration packet received\r\n");
-			printf("stream length (samples): %d\r\n", cfg_packet.sample_count);
-			printf("sample rate (bps): %d\r\n", cfg_packet.sample_rate);
-			printf("sample depth (bits): %d\r\n", cfg_packet.sample_depth);
-			printf("channels_count: %d\r\n", cfg_packet.channels_count);
-			printf("volume multiplier: 0x%x\r\n", cfg_packet.volume_multiplier);
-			printf("use_trigger: %d\r\n", cfg_packet.use_trigger);
+		if (configured == 0) {
+			printf("configuration passed!\r\n");
 
-			if (cfg_packet.sample_count != 0 &&
-					cfg_packet.sample_rate != 0 &&
-					cfg_packet.sample_depth != 0 &&
-					cfg_packet.channels_count != 0) {
+			memset(rx_data, 0x00, sizeof(rx_data));
+			memset(timestamps, 0x00, sizeof(timestamps));
 
-				sd->sample_count = cfg_packet.sample_count;
-				sd->sample_rate = cfg_packet.sample_rate;
-				sd->sample_depth = cfg_packet.sample_depth;
-				sd->channels_count = cfg_packet.channels_count;
-				sd->volume_multiplier = cfg_packet.volume_multiplier;
-				sd->use_trigger = cfg_packet.use_trigger;
-
-				// Update sample rate, cast is needed to override const
-				((struct audio_format *) sd->audio_buffer_pool->format)->sample_freq = sd->sample_rate;
-
-				printf("configuration passed!\r\n");
-
-				memset(rx_data, 0x00, sizeof(rx_data));
-				memset(timestamps, 0x00, sizeof(timestamps));
-
-				sd->state = TRANSFER;
-			} else {
-				printf("configuration failed!\r\n");
-			}
-		} else {
+			sd->state = TRANSFER;
+		}
+		if (configured == -ENOTSUP) {
+			printf("configuration failed!\r\n");
+		}
+		if (configured == -ENOMEM) {
+			printf("Not enough memory for this configuration!\r\n");
+		}
+		if (configured == -EBADMSG) {
 			printf("expected cfg packet!\r\n");
 		}
 		break;
@@ -194,7 +221,6 @@ static void vendor_task(struct stream_desc *sd)
 		int buffer_count =  1 + ((sd->sample_count - 1) / (SAMPLES_PER_BUFFER));
 
 		for (int j = 0; j < buffer_count; j++) {
-
 			struct audio_buffer *buffer = take_audio_buffer(sd->audio_buffer_pool, true);
 
 			int16_t *samples_src = (int16_t *)rx_data + SAMPLES_PER_BUFFER * j * 2;

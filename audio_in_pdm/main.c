@@ -23,9 +23,10 @@
 #define SAMPLES_PER_BUFFER	16
 
 #define RX_DATA_SIZE		(MAX_SAMPLE_COUNT * MAX_CHANNEL_COUNT * MAX_BYTES_PER_SAMPLE)
+#define TIMESTAMPS_ENTRIES	(MAX_SAMPLE_COUNT / SAMPLES_PER_BUFFER)
 
 uint8_t rx_data[RX_DATA_SIZE];
-uint64_t timestamps[MAX_SAMPLE_COUNT / SAMPLES_PER_BUFFER];
+uint64_t timestamps[TIMESTAMPS_ENTRIES];
 
 // configuration
 const struct pdm_microphone_config config = {
@@ -162,13 +163,14 @@ static void vendor_task(struct stream_desc *sd)
 		}
 
 		int buffer_count =  1 + ((sd->sample_count - 1) / (SAMPLES_PER_BUFFER));
-    printf("buffer_count: %d\r\n", buffer_count);
+
+		printf("buffer_count: %d\r\n", buffer_count);
 
 		for (int j = 0; j < buffer_count; j++) {
 
-      while (samples_read == 0) {
-        tight_loop_contents();
-      }
+			while (samples_read == 0) {
+				tight_loop_contents();
+			}
 			timestamps[j] = time_us_64();
 
 			int16_t *samples_dst = (int16_t *)rx_data + SAMPLES_PER_BUFFER * j;
@@ -177,10 +179,10 @@ static void vendor_task(struct stream_desc *sd)
 				samples_dst[i] = sample_buffer[i];
 			}
 
-      samples_read = 0;
+			samples_read = 0;
 		}
 
-    printf("End acquisition\r\n");
+		printf("End acquisition\r\n");
 
 		sd->state = TRANSFER;
 		break;
@@ -195,8 +197,9 @@ static void vendor_task(struct stream_desc *sd)
 		int timestamps_count =  1 + ((sd->sample_count - 1) / (SAMPLES_PER_BUFFER));
 
 		printf("USB transfers count: %d\r\n", USB_TRANSFERS_COUNT(tx_len));
-
-		for (int i = 0; i < USB_TRANSFERS_COUNT(tx_len); i++) {
+		int usb_transfers_max = USB_TRANSFERS_COUNT(tx_len);
+				
+		for (int i = 0; i < usb_transfers_max; i++) {
 			usb_write(&rx_data[i * USB_BULK_PACKET_SIZE], USB_BULK_PACKET_SIZE);
 		}
 
