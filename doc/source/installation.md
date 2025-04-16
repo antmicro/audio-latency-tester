@@ -9,21 +9,22 @@ To install the dependencies on Debian Bookworm, run:
 apt install cmake python3 python3-venv build-essential gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-arm-none-eabi-newlib libusb-1.0-0-dev
 ```
 
-To run the project it is also required to install `PyUSB`:
-
-```sh
-python3 -m venv .venv
-source .venv/bin/activate
-pip install pyusb
-```
-
-## Build RP2040 firmware
 Clone the audio-latency-tester repository:
 
 ```sh
 git clone https://github.com/antmicro/audio-latency-tester.git
 cd audio-latency-tester
 ```
+
+To run the project it is also required to install `PyUSB`:
+
+```sh
+python3 -m venv .venv
+source .venv/bin/activate
+pip install pyusb click
+```
+
+## Build RP2040 firmware
 
 Install `pico-sdk` and `pico-extras` :
 
@@ -34,7 +35,7 @@ git clone --recurse-submodules --branch sdk-2.1.0 https://github.com/raspberrypi
 
 The build system uses environment variables to find these repositories:
 
-```console
+```sh
 export PICO_SDK_PATH=$(pwd)/pico-sdk
 export PICO_EXTRAS_PATH=$(pwd)/pico-extras
 ```
@@ -42,7 +43,7 @@ export PICO_EXTRAS_PATH=$(pwd)/pico-extras
 
 To build the project, run:
 
-```console
+```sh
 cmake -S . -B build
 cmake --build build -j$(nproc)
 ```
@@ -92,7 +93,7 @@ Bus 001 Device 099: ID 2e8a:0003 Raspberry Pi RP2 Boot
 
 * Use `picotool` to flash the device and execute the program immediately:
 
-```console
+```sh
 picotool load -x build/audio_in_pdm/rp2040-i2s-timestamp-audio-in.uf2
 ```
 
@@ -136,7 +137,7 @@ Bus 001 Device 101: ID 2e8a:0003 Raspberry Pi RP2 Boot
 
 * Use `picotool` to flash the device and execute the program immediately:
 
-```console
+```sh
 picotool load -x build/audio_out/rp2040-i2s-timestamp.uf2
 ```
 * With `lsusb`, you should see that the device is recognized as a USB device with ID `cafe:4011` 
