@@ -144,12 +144,14 @@ python3 ./automated_test/analyze.py 1s_44100_2ch_16b.wav out.wav
 
 ## Example measurement
 
-Example audio-channel latency measurement has been performed. The goal of this test was to measure the latency of `Google Meet` system.
+The audio-channel latency measurement was conducted to assess the latency of the `Google Meet` system.
 
 The device under test consisted of:
 
 * PC with Debian 12 system and `Google Meet` running in a `Google Chrome` web browser
 * An Android smartphone with `Google Meet` application
+
+Both devices were connected to `Google Meet` meeting via the same Wi-Fi network. A speaker connected to the [audio latency tester board](https://github.com/antmicro/audio-latency-tester-board) was placed in front of the smartphone, while a microphone board was attached to a headphones connected to the PC. 
 
 10 recordings were made using:
 
