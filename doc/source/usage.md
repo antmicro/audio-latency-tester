@@ -134,7 +134,7 @@ python3 ./automated_test/analyze.py <reference_file> <recorded_file>
 The scripts outputs a `results.csv` file where each matched starting/stopping moment from the `.wav` files have the timestamp listed.
 
 :::{Tip}
-Play the example audio file with:
+To compare recorded audio with the example audio file use:
 ```sh
 python3 ./automated_test/analyze.py 1s_44100_2ch_16b.wav out.wav
 ```
