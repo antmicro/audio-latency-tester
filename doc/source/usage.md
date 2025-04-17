@@ -54,7 +54,9 @@ Bus 001 Device 021: ID cafe:4011 Raspberry Pi RP2040
 Bus 001 Device 022: ID cafe:4010 Raspberry Pi RP2040
 ```
 
-## Scripts usage
+## Standalone scripts usage
+
+Before performing the measurements, it is possible to test the audio playback and audio capture
 
 Activate the virtual environment
 ```sh
@@ -94,7 +96,13 @@ Output files from this script include:
 
 ## Synchronized audio capture and playback
 
-To get accurate audio latency measurements, both the MCUs need to be in sync. When using the script below, playback MCU will trigger the capture MCU right before the audio playback is started.
+To get accurate audio latency measurements, both the MCUs need to be in sync. When using the `play_capture.py` script, the playback MCU will trigger the capture MCU right before the audio playback is started.
+
+Make sure the virtual environment is activated
+```sh
+source .venv/bin/activate
+```
+
 
 ```sh
 python3 play_capture.py <file>
@@ -130,3 +138,41 @@ Play the example audio file with:
 ```sh
 python3 ./automated_test/analyze.py 1s_44100_2ch_16b.wav out.wav
 ```
+:::
+
+
+
+## Example measurement
+
+Example audio-channel latency measurement has been performed. The goal of this test was to measure the latency of `Google Meet` system.
+
+The device under test consisted of:
+
+* PC with Debian 12 system and `Google Meet` running in a `Google Chrome` web browser
+* An Android smartphone with `Google Meet` application
+
+10 recordings were made using:
+
+```sh
+python3 play_capture.py --duration=1.5 --volume-play 400 --volume-capture 200 1s_44100_2ch_16b.wav --out-wav out1.wav
+```
+
+and where later interpreted with:
+
+```sh
+python3 ./automated_test/analyze.py 1s_44100_2ch_16b.wav out1.wav out2.wav out3.wav out4.wav out5.wav out6.wav out7.wav out8.wav out9.wav out10.wav
+```
+
+Produced `results.csv` spreadsheet was then used to calculate the average latency: `257ms`
+
+:::{Note}
+Latency of the measurement system alone was tested to be equal (on average) to `3.31ms` 
+:::
+
+Recording from that test can be found in `doc/meet-latency-measurements` folder.
+
+:::{figure-md}
+![](img/example-audio-latancy.png)
+
+Recorded and reference audio waveforms
+:::
