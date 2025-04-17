@@ -140,7 +140,8 @@ python3 ./automated_test/analyze.py 1s_44100_2ch_16b.wav out.wav
 ```
 :::
 
-
+Latency of the measurement system alone was tested to be equal (on average) to `3.31ms`.
+Recordings and calculations can be found in `doc/base-system-latency-measurements` folder.
 
 ## Example measurement
 
@@ -165,13 +166,9 @@ and where later interpreted with:
 python3 ./automated_test/analyze.py 1s_44100_2ch_16b.wav out1.wav out2.wav out3.wav out4.wav out5.wav out6.wav out7.wav out8.wav out9.wav out10.wav
 ```
 
-Produced `results.csv` spreadsheet was then used to calculate the average latency: `257ms`
+Produced `results.csv` spreadsheet was then used to calculate the average latency: `257ms`.
 
-:::{Note}
-Latency of the measurement system alone was tested to be equal (on average) to `3.31ms` 
-:::
-
-Recording from that test can be found in `doc/meet-latency-measurements` folder.
+Recordings from that test can be found in `doc/meet-latency-measurements` folder.
 
 :::{figure-md}
 ![](img/example-audio-latancy.png)
