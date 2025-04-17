@@ -92,7 +92,7 @@ Output files from this script include:
 * Timestamps of 16-samples long recorded sections - `timestamps-capture.log`
 
 
-### Synchronized audio capture and playback
+## Synchronized audio capture and playback
 
 To get accurate audio latency measurements, both the MCUs need to be in sync. When using the script below, playback MCU will trigger the capture MCU right before the audio playback is started.
 
@@ -115,7 +115,7 @@ python3 play_capture.py --duration=1 1s_44100_2ch_16b.wav
 ```
 :::
 
-### Data interpretation
+## Data interpretation
 
 After performing [synchronized audio capture and playback](#synchronized-audio-capture-and-playback), the recorded audio can be compared with the reference (played) audio file. The `analyze.py` located in the `automated_test` folder can match the sound starting/stopping to associate the moments in time between wav files.
 
