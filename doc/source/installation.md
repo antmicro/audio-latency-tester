@@ -16,7 +16,7 @@ git clone https://github.com/antmicro/audio-latency-tester.git
 cd audio-latency-tester
 ```
 
-To run the project it is also required to install `PyUSB`:
+To run the project, it is also required to install `PyUSB`:
 
 ```sh
 python3 -m venv .venv
@@ -24,7 +24,7 @@ source .venv/bin/activate
 pip install pyusb click
 ```
 
-## Build RP2040 firmware
+## Building RP2040 firmware
 
 Install `pico-sdk` and `pico-extras` :
 
@@ -48,7 +48,7 @@ cmake -S . -B build
 cmake --build build -j$(nproc)
 ```
 
-If build succeeded, following files should be present in build directory:
+If the build succeeded, the following files should be present in build directory:
 
 * `build/audio_out/rp2040-i2s-timestamp.elf`
 * `build/audio_out/rp2040-i2s-timestamp.uf2`
@@ -59,13 +59,13 @@ If build succeeded, following files should be present in build directory:
 
 ### Install Picotool
 
-In order to flash devices, `picotool` is needed.
-The installation instructions can be found in this [readme](https://github.com/raspberrypi/picotool/blob/master/README.md).
+In order to flash the devices, `picotool` is required.
+The installation instructions can be found in this [README](https://github.com/raspberrypi/picotool/blob/master/README.md).
 
 ### Flashing firmware to the board
 
-The [Audio latency tester board](https://github.com/antmicro/audio-latency-tester-board) consist of 2 independent RP2040 - one for audio input, other for audio output.
-Each of them has to be flashed with `.uf2` file prepared in the previous chapter.
+The [Audio latency tester board](https://github.com/antmicro/audio-latency-tester-board) consists of 2 independent RP2040 MCUs - one for audio input, other for audio output.
+Each of them has to be flashed with the `.uf2` file prepared in the previous steps.
 
 #### Flashing Audio input firmware
 
@@ -82,7 +82,7 @@ MCU-1 USB-C connection
 
 * Press and release the `MCU-1 RST` ([`SW1`](#SW1)) button.
 
-* Release the `MCU-1 BOOTSEL`.
+* Release the `MCU-1 BOOTSEL` button.
 
 * With `lsusb`, you should see that the device is recognized as a USB device `Raspberry Pi RP2 Boot`
 
@@ -104,7 +104,7 @@ Loading into Flash:   [==============================]  100%
 
 The device was rebooted to start the application.
 ```
-* With `lsusb`, you should see that the device is recognized as a USB device with ID `cafe:4010` 
+* With `lsusb`, you should see that the device is recognized as a USB device with ID `cafe:4010`
 
 ```console
 Bus 003 Device 012: ID cafe:4010 Raspberry Pi RP2040
@@ -112,7 +112,7 @@ Bus 003 Device 012: ID cafe:4010 Raspberry Pi RP2040
 
 #### Flashing Audio output firmware
 
-* If still connected - remove the USB-C from previous step.
+* If it's still connected - remove the USB-C from the previous step.
 * Connect MCU-2 USB-C (the port labeled as `USB-C Speaker`) to your PC. LEDs should light up.
 
 :::{figure-md}
@@ -122,11 +122,11 @@ MCU-2 USB-C connection
 :::
 
 
-* Press and hold the `MCU-2 BOOTSEL` ([`SW4`](#SW4)) button. 
+* Press and hold the `MCU-2 BOOTSEL` ([`SW4`](#SW4)) button.
 
 * Press and release the `MCU-2 RST` ([`SW3`](#SW3)) button.
 
-* Release the `MCU-2 BOOTSEL`.
+* Release the `MCU-2 BOOTSEL` button.
 
 * With `lsusb`, you should see that the device is recognized as a USB device `Raspberry Pi RP2 Boot`
 
@@ -140,7 +140,7 @@ Bus 001 Device 101: ID 2e8a:0003 Raspberry Pi RP2 Boot
 ```sh
 picotool load -x build/audio_out/rp2040-i2s-timestamp.uf2
 ```
-* With `lsusb`, you should see that the device is recognized as a USB device with ID `cafe:4011` 
+* With `lsusb`, you should see that the device is recognized as a USB device with ID `cafe:4011`
 
 ```console
 Bus 003 Device 012: ID cafe:4011 Raspberry Pi RP2040
