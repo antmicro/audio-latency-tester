@@ -2,6 +2,7 @@
 
 Copyright (c) 2024-2025 [Antmicro](https://www.antmicro.com)
 
+![](doc/source/img/collage.png)
 
 The aim of this project is to provide a platform for measurement and characterization of audio latencies. 
 
