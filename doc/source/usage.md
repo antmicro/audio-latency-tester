@@ -143,9 +143,75 @@ python3 ./automated_test/analyze.py 1s_44100_2ch_16b.wav out.wav
 The latency of the measurement system alone was tested to be equal (on average) to `3.31ms`.
 Recordings and calculations can be found in the `doc/base-system-latency-measurements` folder.
 
-## Example measurement
+## Example measurements
 
-The audio-channel latency measurement was conducted to assess the latency of the `Google Meet` system.
+To help visualize the measurement procedures, two tests were conducted to assess the latency of:
+* `Bluetooth 5.2` headset
+* `Google Meet` system
+
+### `Bluetooth 5.2` headset latency measurement
+
+The device under test consisted of:
+
+* PC with `Debian 12` system equipped with `Bluetooth` card
+* A wireless headset (speakers + microphone) compatible with `Bluetooth 5.2` 
+
+:::{figure-md}
+![](img/headset-testing-setup.png)
+
+Wireless headset testing setup
+:::
+
+The PC was configured to loopback the audio from the `headset's microphone` back to `headset's speakers`.
+For this specific configuration following command was used:
+
+```sh
+pw-link bluez_input.3F_21_BD_E1_4F_44.0 bluez_output.3F_21_BD_E1_4F_44.1
+```
+The test procedure consisted of following steps:
+* Audio bleed recording - were the headset was muted and the following command was used:
+
+```sh
+python3 play_capture.py --duration=1.5 --volume-play 30000 1s_44100_2ch_16b.wav --out-wav background.wav
+```
+
+This recording was later used to remove any overlap between the test sound and the recorded sound.
+
+* Latency recordings - the headset was un-muted and it's microphone have been activated.
+
+```sh
+python3 play_capture.py --duration=1.5 --volume-play 30000 1s_44100_2ch_16b.wav --out-wav out1.wav
+```
+In total, 10 recordings were made
+
+
+* Background removal - The recorded `background.wav` was removed from the latency recordings using `Short-Time Fourier Transform`.
+
+```sh
+python3 remove_background.py out1.wav background.wav out1-clean.wav
+```
+
+*  Automated calculation analyze- Following scripts detects the audio start and stop moments. Then, it compares them with the original audio file and calculates the delays.
+
+```sh
+python3 ./automated_test/analyze.py 1s_44100_2ch_16b.wav out1-clean.wav out2-clean.wav out3-clean.wav out4-clean.wav out5-clean.wav out6-clean.wav out7-clean.wav out8-clean.wav out9-clean.wav out10-clean.wav
+```
+
+The resulting `results.csv` spreadsheet was then used to calculate the average latency: `375ms`.
+
+:::{Note}
+Keep in mind that this latency includes: Bluetooth data transmission (both ways) and data processing (in the headset and the PC's operating system)
+:::
+
+Recordings from that test can be found in the `doc/bt-headset-latency-measurements` folder.
+
+:::{figure-md}
+![](img/latency-recordings.png)
+
+Recorded and processed audio waveforms
+:::
+
+### `Google Meet` system latency measurement
 
 The device under test consisted of:
 

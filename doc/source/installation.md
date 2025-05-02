@@ -21,7 +21,7 @@ To run the project, it is also required to install `PyUSB`:
 ```sh
 python3 -m venv .venv
 source .venv/bin/activate
-pip install pyusb click
+pip install pyusb click librosa numpy soundfile argparse
 ```
 
 ## Building RP2040 firmware
