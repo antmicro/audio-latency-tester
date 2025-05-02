@@ -30,6 +30,7 @@ def read_wav(file_path):
     except wave.Error as e:
         click.echo(f"Error processing {file_path}: {e}")
 
+
 def count_leading_zeros(data):
     count = 0
     for x in data:
@@ -98,7 +99,18 @@ def find_sound_end(data):
 def process_wav(wav_file):
     audio, time_delta = read_wav(wav_file)
     threshed = sine_to_const(audio)
-    return (audio, time_delta, (find_sound_start(threshed), find_sound_end(threshed)))
+
+    starts = find_sound_start(threshed)
+    stops = find_sound_end(threshed)
+
+    # Filter indices where the duration is at least 10 samples
+    filtered = [(s, e) for s, e in zip(starts, stops) if e - s >= 10]
+
+    filtered_starts = [s for s, _ in filtered]
+    filtered_stops = [e for _, e in filtered]
+
+    return (audio, time_delta, (filtered_starts, filtered_stops))
+
 
 def indices_to_timestamps(data, delta_time_per_sample):
     res = []
