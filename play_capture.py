@@ -10,59 +10,52 @@ def main():
     parser.add_argument("file", help="Filename of the WAV file to play")
     parser.add_argument(
         "--out-wav",
+        default="out.wav",
         help="Filename of the WAV file to save captured samples (default: out.wav)",
     )
     parser.add_argument(
         "--timestamps-file-play",
+        default="timestamps_play.log",
         help="File where timestamp values will be written (play)",
     )
     parser.add_argument(
         "--timestamps-file-capture",
+        default="timestamps_capture.log",
         help="File where timestamp values will be written (capture)",
     )
     parser.add_argument(
         "--volume-play",
+        default=4000,
+        type=int,
         help="Volume multiplier for playing (default: 4000)",
     )
     parser.add_argument(
         "--volume-capture",
+        default=100,
+        type=int,
         help="Volume multiplier for capture (default: 100)",
     )
     parser.add_argument(
         "--duration",
+        default=None,
+        type=float,
         help="Length of the capture in seconds (default: max available length)",
     )
     args = parser.parse_args()
 
-    out_wav = "out.wav" if args.out_wav is None else args.out_wav
-
-    timestamps_play = (
-        "timestamps_play.log"
-        if args.timestamps_file_play is None
-        else args.timestamps_file_play
-    )
-    timestamps_capture = (
-        "timestamps_capture.log"
-        if args.timestamps_file_capture is None
-        else args.timestamps_file_capture
-    )
-
-    volume_play = 4000 if args.volume_play is None else int(args.volume_play)
-    volume_capture = 100 if args.volume_capture is None else int(args.volume_capture)
-
-    duration = None if args.duration is None else float(args.duration)
-
     def run_player():
         ac = audio_controller.AudioController()
-        ac.play_audio(Path(args.file), Path(timestamps_play), volume=volume_play)
+        ac.play_audio(
+            Path(args.file), Path(args.timestamps_file_play), volume=args.volume_play
+        )
 
     def run_recorder():
         ac = audio_controller.AudioController()
         ac.start_recording(
-            out_wav,
-            Path(timestamps_capture),
-            volume=volume_capture,
-            duration_s=duration,
+            args.out_wav,
+            Path(args.timestamps_file_capture),
+            volume=args.volume_play,
+            duration_s=args.duration,
             use_trigger=1,
         )
 
