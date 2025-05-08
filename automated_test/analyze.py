@@ -44,8 +44,8 @@ def count_leading_zeros(data):
 def sine_to_const(data):
     threshold = 0.6 * max(data)
     new_data = []
-    for i in range(0, len(data)-1):
-        if abs(data[i]) > threshold:
+    for value in data[:-1]:
+        if abs(value) > threshold:
             new_data.append(threshold)
         else:
             new_data.append(0)
