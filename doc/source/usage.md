@@ -16,7 +16,7 @@ The microphone board is a small footprint carrier board for a PDM microphone. Tw
 Microphone board left/right channel selection
 :::
 
-* Connect [microphone boards](https://github.com/antmicro/pdm-microphone-board) to the [audio latency tester board](https://github.com/antmicro/audio-latency-tester-board) with a 5 pin, 0.5 mm pitch, same-side flat flexible cable:
+* Connect [microphone boards](https://github.com/antmicro/pdm-microphone-board) to the [audio latency tester board](https://github.com/antmicro/audio-latency-tester-board) with a 5 pin, 0.5 mm pitch, same-side flat flexible cable (example MPN: `05-05-D-0050-A-4-06-4-T`):
 
 
 :::{Caution}
