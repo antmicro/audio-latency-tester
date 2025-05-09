@@ -6,7 +6,7 @@ pico_sdk_init()
 
 add_executable(rp2040-i2s-timestamp
   main.c
-  usb_descriptors.c
+  ${CMAKE_CURRENT_LIST_DIR}/../third_party/usb_descriptors_audio_out.c
 )
 
 target_link_libraries(rp2040-i2s-timestamp PRIVATE
@@ -36,6 +36,10 @@ target_include_directories(rp2040-i2s-timestamp PUBLIC
 
 target_include_directories(rp2040-i2s-timestamp PUBLIC
   ${CMAKE_CURRENT_LIST_DIR}/../include
+)
+
+target_include_directories(rp2040-i2s-timestamp PUBLIC
+  ${CMAKE_CURRENT_LIST_DIR}/../third_party
 )
 
 pico_add_extra_outputs(rp2040-i2s-timestamp)

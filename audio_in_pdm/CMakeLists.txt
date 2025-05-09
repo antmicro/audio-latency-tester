@@ -6,12 +6,12 @@ pico_sdk_init()
 
 add_executable(rp2040-i2s-timestamp-audio-in
   main.c
-  pdm_microphone/pdm_microphone.c
-  usb_descriptors.c
-  OpenPDM2PCM/OpenPDMFilter.c
+  ${CMAKE_CURRENT_LIST_DIR}/../third_party/pdm_microphone/pdm_microphone.c
+  ${CMAKE_CURRENT_LIST_DIR}/../third_party/usb_descriptors_audio_in_pdm.c
+  ${CMAKE_CURRENT_LIST_DIR}/../third_party/OpenPDM2PCM/OpenPDMFilter.c
 )
 
-pico_generate_pio_header(rp2040-i2s-timestamp-audio-in ${CMAKE_CURRENT_LIST_DIR}/pdm_microphone/pdm_microphone.pio)
+pico_generate_pio_header(rp2040-i2s-timestamp-audio-in ${CMAKE_CURRENT_LIST_DIR}/../third_party/pdm_microphone/pdm_microphone.pio)
 
 target_link_libraries(rp2040-i2s-timestamp-audio-in PRIVATE
   pico_stdlib
@@ -38,6 +38,10 @@ target_include_directories(rp2040-i2s-timestamp-audio-in PUBLIC
 
 target_include_directories(rp2040-i2s-timestamp-audio-in PUBLIC
   ${CMAKE_CURRENT_LIST_DIR}/../include
+)
+
+target_include_directories(rp2040-i2s-timestamp-audio-in PUBLIC
+  ${CMAKE_CURRENT_LIST_DIR}/../third_party
 )
 
 pico_add_extra_outputs(rp2040-i2s-timestamp-audio-in)
