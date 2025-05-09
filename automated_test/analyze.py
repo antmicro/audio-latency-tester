@@ -42,8 +42,11 @@ def count_leading_zeros(data):
 
 
 def sine_to_const(data):
+    """Binarize the samples"""
+
     threshold = 0.6 * max(data)
     new_data = []
+
     for value in data[:-1]:
         if abs(value) > threshold:
             new_data.append(threshold)
@@ -59,9 +62,10 @@ def sine_to_const(data):
             break
 
         zeros = count_leading_zeros(new_data[id:])
+        # Patch short runs of zeros with the threshold value
         # adjust this if needed
         if zeros < 50:
-            for i in range(id, id+zeros):
+            for i in range(id, id + zeros):
                 new_data[i] = threshold
         else:
             id += zeros + 1
