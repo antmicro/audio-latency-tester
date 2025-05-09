@@ -15,8 +15,7 @@ def remove_background(input_wav, background_wav, output_wav):
     mag_output, phase_output = np.abs(input_spectogram), np.angle(input_spectogram)
     mag_background = np.abs(background_spectogram)
 
-    # Subtract background magnitude 
-    # flooring to avoid negatives
+    # Subtract background magnitude, clamp the result to 0 to avoid negative values
     mag_clean = np.maximum(mag_output - mag_background, 0)
 
     # Reconstruct complex Short-time Fourier transform
