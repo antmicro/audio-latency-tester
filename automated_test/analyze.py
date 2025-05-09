@@ -134,7 +134,6 @@ def main(wav_files):
         return
 
     sounds_detected = []
-    # 1/frequency, how much time between samples
     time_deltas = []
     audio_samples = []
 
