@@ -117,10 +117,7 @@ def process_wav(wav_file):
 
 
 def indices_to_timestamps(data, delta_time_per_sample):
-    res = []
-    for d in data:
-        res.append(d * delta_time_per_sample)
-    return res
+    return [d * delta_time_per_sample for d in data]
 
 
 def csv_entry(filename, timestamps_start, timestamps_end):
