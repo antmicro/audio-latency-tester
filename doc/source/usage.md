@@ -30,7 +30,9 @@ FFC connections
 :::
 
 The audio latency tester board has two connectors for the microphone boards:  [`J4`](#J4) and [`J5`](#J5).
-
+:::{Note}
+The current version of the [RP2040 firmware](./installation.md#building-rp2040-firmware) supports recording from only one microphone at a time. By default, the audio from microphone board configured as the `left channel` will be processed.
+:::
 :::{Tip}
 To insert the FFC, push the connector's lever down, insert the FFC and pull the lever up
 :::
