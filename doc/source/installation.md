@@ -1,7 +1,7 @@
 # Installation and setup
 
 ## Installing dependencies
-`CMake` (3.20 or newer), `Python3` and the `ARM toolchain` are required to build the project.
+[`CMake (3.20 or newer)`](https://cmake.org/cmake/help/latest/release/3.20.html), [`Python3`](https://www.python.org/) and the [`ARM toolchain`](https://developer.arm.com/downloads/-/gnu-rm) are required to build the project.
 
 To install the dependencies on Debian Bookworm, run:
 
@@ -26,7 +26,7 @@ pip install pyusb click librosa numpy soundfile argparse
 
 ## Building RP2040 firmware
 
-Install `pico-sdk` and `pico-extras` :
+Install [`pico-sdk`](https://github.com/raspberrypi/pico-sdk) and [`pico-extras`](https://github.com/raspberrypi/pico-extras):
 
 ```sh
 git clone --recurse-submodules --branch 2.1.0 https://github.com/raspberrypi/pico-sdk.git
@@ -59,7 +59,7 @@ If the build succeeded, the following files should be present in build directory
 
 ### Install Picotool
 
-In order to flash the devices, `picotool` is required.
+In order to flash the devices, [`picotool`](https://github.com/raspberrypi/picotool/tree/master) is required.
 The installation instructions can be found in this [README](https://github.com/raspberrypi/picotool/blob/master/README.md).
 
 ### Flashing firmware to the board
