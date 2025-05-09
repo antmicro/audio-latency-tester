@@ -62,12 +62,12 @@ If the build succeeded, the following files should be present in build directory
 In order to flash the devices, [`picotool`](https://github.com/raspberrypi/picotool/tree/master) is required.
 The installation instructions can be found in this [README](https://github.com/raspberrypi/picotool/blob/master/README.md).
 
-### Flashing firmware to the board
+### Flashing [firmware](#building-rp2040-firmware) to the board
 
 The [Audio latency tester board](https://github.com/antmicro/audio-latency-tester-board) consists of 2 independent RP2040 MCUs - one for audio input, other for audio output.
 Each of them has to be flashed with the `.uf2` file prepared in the previous steps.
 
-#### Flashing Audio input firmware
+#### Flashing Audio input [firmware](#building-rp2040-firmware)
 
 * Connect MCU-1 USB-C (the port labeled as `USB-C Mics`) to your PC. LEDs should light up.
 
@@ -110,7 +110,7 @@ The device was rebooted to start the application.
 Bus 003 Device 012: ID cafe:4010 Raspberry Pi RP2040
 ```
 
-#### Flashing Audio output firmware
+#### Flashing Audio output [firmware](#building-rp2040-firmware)
 
 * Disconnect MCU-1 USB-C port.
 * Connect MCU-2 USB-C (the port labeled as `USB-C Speaker`) to your PC. LEDs should light up.
