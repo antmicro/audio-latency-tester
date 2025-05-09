@@ -112,7 +112,7 @@ Bus 003 Device 012: ID cafe:4010 Raspberry Pi RP2040
 
 #### Flashing Audio output firmware
 
-* If it's still connected - remove the USB-C from the previous step.
+* Disconnect MCU-1 USB-C port.
 * Connect MCU-2 USB-C (the port labeled as `USB-C Speaker`) to your PC. LEDs should light up.
 
 :::{figure-md}
