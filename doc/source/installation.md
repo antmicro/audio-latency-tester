@@ -16,12 +16,12 @@ git clone https://github.com/antmicro/audio-latency-tester.git
 cd audio-latency-tester
 ```
 
-To run the project, it is also required to install `PyUSB`:
+To run the project, it is also required to install following `Python` packages:
 
 ```sh
 python3 -m venv .venv
 source .venv/bin/activate
-pip install pyusb click librosa numpy soundfile argparse
+pip install pyusb libusb click librosa numpy soundfile argparse
 ```
 
 ## Building RP2040 firmware
