@@ -3,6 +3,18 @@ import numpy as np
 import soundfile as sf
 
 def remove_background(input_wav, background_wav, output_wav):
+    """
+    Removes background noise from an audio file using spectral subtraction
+
+    Args:
+        input_wav (str): Path to the input audio file containing the signal + noise
+        background_wav (str): Path to an audio file containing only the background noise
+        output_wav (str): Path to save the output audio file with the background removed
+
+    Returns:
+        None
+    """
+     
     # Load audio files 
     samples_input, sampling_rate_input = librosa.load(input_wav, sr=None, mono=True)
     samples_background, sampling_rate_background = librosa.load(background_wav, sr=sampling_rate_input, mono=True)

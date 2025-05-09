@@ -44,12 +44,16 @@ def main():
     args = parser.parse_args()
 
     def run_player():
+        """ Initializes the audio playback controller with arguments provided by argparse
+        """
         ac = audio_controller.AudioController()
         ac.play_audio(
             Path(args.file), Path(args.timestamps_file_play), volume=args.volume_play
         )
 
     def run_recorder():
+        """ Initializes the audio record controller with arguments provided by argparse
+        """
         ac = audio_controller.AudioController()
         ac.start_recording(
             args.out_wav,
@@ -62,10 +66,7 @@ def main():
     recorder = Process(target=run_recorder)
     recorder.start()
 
-    # TODO the recorder needs to be configured and start waiting for trigger
-    # before the player is started.
-    # We should do the configuration and recording steps in separate functions
-    # instead of sleeping here
+    # The recorder needs to be configured and start waiting for trigger before the player is started.
     time.sleep(2)
 
     player = Process(target=run_player)

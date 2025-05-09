@@ -5,6 +5,14 @@ import struct
 import wave
 
 def read_wav(file_path):
+    """ Reads wav file from the provided path. Extracts the audio samples and the time resolution
+
+    Args:
+        file_path (str): Path to the input audio file
+
+    Returns:
+        Tuple[Tuple[int, ...], float]: A tuple containing the unpacked audio data and the time steps
+    """
     try:
         with wave.open(file_path, 'rb') as wav_file:
             num_channels = wav_file.getnchannels()
@@ -32,6 +40,14 @@ def read_wav(file_path):
 
 
 def count_leading_zeros(data):
+    """ Count leading zeros in the provided data
+
+    Args:
+        data (Tuple[int, ...]): Data to be analyzed
+
+    Returns:
+        int: Number of leading zeros
+    """
     count = 0
     for x in data:
         if x == 0:
@@ -42,7 +58,14 @@ def count_leading_zeros(data):
 
 
 def sine_to_const(data):
-    """Binarize the samples"""
+    """ Binarize the samples
+
+    Args:
+        data (Tuple[int, ...]): Data to be analyzed
+
+    Returns:
+        Tuple[int, ...]: Binarized samples
+    """
 
     threshold = 0.6 * max(data)
     new_data = []
@@ -75,7 +98,14 @@ def sine_to_const(data):
 
 
 def find_sound_start(data):
-    """find the start of each time sound is detected"""
+    """ Find the start of each time sound is detected
+
+    Args:
+        data (Tuple[int, ...]): Data to be analyzed
+
+    Returns:
+        Tuple[int, ...]: A tuple containing the sample numbers where the start of each sound is detected
+    """
     res = []
 
     if data[0] != 0:
@@ -88,7 +118,14 @@ def find_sound_start(data):
 
 
 def find_sound_end(data):
-    """find the end of each time sound is detected"""
+    """ Find the end of each time sound is detected
+
+    Args:
+        data (Tuple[int, ...]): Data to be analyzed
+
+    Returns:
+       Tuple[int, ...]: A tuple containing the sample numbers where the end of each sound is detected
+    """
     res = []
     for i in range(len(data)-1):
         if data[i] != 0 and data[i+1]==0:
@@ -101,6 +138,19 @@ def find_sound_end(data):
 
 
 def process_wav(wav_file):
+    """ Process given wav file to identify significant audio segments
+
+    Args:
+        wav_file (str): Path to the WAV file
+
+    Returns:
+         Tuple[ Tuple[int, ...], float,  Tuple[List[int, ...], List[int, ...]] ]: 
+         - Raw audio samples from the wav file
+         - Time step between the samples
+         - A tuple: 
+             - list containing the sample numbers of detected sound start segments 
+             - list containing the sample numbers of detected sound stop segments 
+    """
     audio, time_delta = read_wav(wav_file)
     threshed = sine_to_const(audio)
 
@@ -117,10 +167,29 @@ def process_wav(wav_file):
 
 
 def indices_to_timestamps(data, delta_time_per_sample):
+    """ Converts a list of sample indices to timestamps (based on the time delta per sample)
+
+    Args:
+        data (List[iny, ...]): Data to be analyzed 
+        delta_time_per_sample (float): time delta between the samples
+
+    Returns:
+        List[float]: Corresponding timestamps in seconds
+    """
     return [d * delta_time_per_sample for d in data]
 
 
 def csv_entry(filename, timestamps_start, timestamps_end):
+    """ Creates a CSV-formatted string with a filename and sorted event timestamps
+
+    Args:
+        filename (str): The name of the file to be included  in the string
+        timestamps_start (List[float]): List of start timestamps (in seconds)
+        timestamps_end (List[float]): List of stop timestamps (in seconds)
+
+    Returns:
+        string: CSV-formatted string with a filename and sorted event timestamps
+    """
     event_timestamps = ";".join(str(ts) for ts in sorted(timestamps_start + timestamps_end))
     return f"{filename}; {event_timestamps}\n"
 
