@@ -8,7 +8,7 @@ The aim of this project is to provide a platform for measurement and characteriz
 
 The repository includes:
 * `.github/` - CI configuration
-* `docs/` - Sphinx-based documentation for the project
+* `doc/` - Sphinx-based documentation for the project
 * `audio_in_pdm/` - RP2040 firmware for audio input
 * `audio_out/` - RP2040 firmware for audio output
 * `include/` - RP2040 USB payload definitions
