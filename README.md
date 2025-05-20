@@ -4,10 +4,16 @@ Copyright (c) 2024-2025 [Antmicro](https://www.antmicro.com)
 
 ![](doc/source/img/collage.png)
 
-The aim of this project is to provide a platform for measurement and characterization of audio latencies. 
+## Overview
 
-The repository includes:
-* `.github/` - CI configuration
+The aim of this project is to provide a hardware and software platform for the measurement and characterization of audio latencies for XR, communication and similar use cases.
+This repository contains the software for the two associated hardware boards.
+
+## Project structure
+
+Notable elements of this repository include:
+
+* `.github/` - GitHub CI configuration
 * `doc/` - Sphinx-based documentation for the project
 * `audio_in_pdm/` - RP2040 firmware for audio input
 * `audio_out/` - RP2040 firmware for audio output
@@ -16,3 +22,7 @@ The repository includes:
 * `audio_controller.py` - Python module for data transactions
 * `audio_playback.py` - Python application for a PC host responsible for playing audio samples 
 * `1s_44100_2ch_16b.wav` - Example recording of a 439 Hz tone
+
+## Licensing
+
+This project is published under the [Apache-2.0](LICENSE) license.
