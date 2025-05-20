@@ -2,12 +2,14 @@
 
 In order to use the scripts described in this chapter, you need the [Audio latency tester board](https://github.com/antmicro/audio-latency-tester-board) flashed with firmware from the [`flashing hardware`](./installation.md#flashing-hardware) section.
 
-The [scripts]((https://github.com/antmicro/audio-latency-tester)) require Python packages from [installing dependencies](./installation.md#installing-dependencies) chapter and sufficient access rights to the connected USB devices.
+The [scripts]((https://github.com/antmicro/audio-latency-tester)) require Python packages from the [installing dependencies](./installation.md#installing-dependencies) chapter and sufficient access rights to the connected USB devices.
 
 ## Hardware preparation
 
 Before proceeding further, it is necessary to connect the [microphone board](https://github.com/antmicro/pdm-microphone-board) to the [audio latency tester board](https://github.com/antmicro/audio-latency-tester-board).
-The microphone board is a small footprint carrier board for a PDM microphone. Two of these boards can be joined for a stereo setup (after configuring two microphone boards for a left and right channel respectively).
+The microphone board is a small footprint carrier board for a PDM microphone.
+Two of these boards can be joined for a stereo setup (after configuring two microphone boards for a left and right channel respectively).
+
 * To select the microphone board's channel, populate the resistor in one of the two orientations:
 
 :::{figure-md}
@@ -17,7 +19,6 @@ Microphone board left/right channel selection
 :::
 
 * Connect [microphone boards](https://github.com/antmicro/pdm-microphone-board) to the [audio latency tester board](https://github.com/antmicro/audio-latency-tester-board) with a 5 pin, 0.5 mm pitch, same-side flat flexible cable (example MPN: `05-05-D-0050-A-4-06-4-T`):
-
 
 :::{Caution}
 Make sure to disconnect all the power sources from the `audio latency tester board` before plugging or unplugging the microphone boards
@@ -61,6 +62,7 @@ Bus 001 Device 022: ID cafe:4010 Raspberry Pi RP2040
 Before performing the measurements, it is possible to test the audio playback and audio capture.
 
 Activate the virtual environment:
+
 ```sh
 source .venv/bin/activate
 ```
@@ -95,16 +97,18 @@ Output files from this script include:
 * Recorded audio `.wav` file
 * Timestamps of 16 audio samples long recorded sections - `timestamps-capture.log`
 
-
 ## Synchronized audio capture and playback
 
-To get accurate audio latency measurements, both the MCUs need to be in sync. When using the `play_capture.py` script, the playback MCU will trigger the capture MCU right before the audio playback is started.
+To get accurate audio latency measurements, both the MCUs need to be in sync.
+When using the `play_capture.py` script, the playback MCU will trigger the capture MCU right before the audio playback is started.
 
-Make sure the virtual environment is activated
+Make sure the virtual environment is activated:
+
 ```sh
 source .venv/bin/activate
 ```
 
+And then run:
 
 ```sh
 python3 play_capture.py <file>
@@ -117,7 +121,8 @@ Output files from this script include:
 * Timestamps of played audio sections (per every 32 audio long)
 
 :::{Tip}
-Environmental conditions may vary. If there is a problem with the speaker or microphone volume, use `--volume-play <default:4000>` and `--volume-capture <default:100>`.
+Environmental conditions may vary.
+If there is a problem with the speaker or microphone volume, use `--volume-play <default:4000>` and `--volume-capture <default:100>`.
 
 Play the example audio file with:
 ```sh
@@ -127,7 +132,8 @@ python3 play_capture.py --duration=1 1s_44100_2ch_16b.wav
 
 ## Data interpretation
 
-After performing [synchronized audio capture and playback](#synchronized-audio-capture-and-playback), the recorded audio can be compared with the reference (played) audio file. The `analyze.py` script located in the `automated_test` folder can match the sound starting/stopping to associate the moments in time between wav files.
+After performing [synchronized audio capture and playback](#synchronized-audio-capture-and-playback), the recorded audio can be compared with the reference (played) audio file.
+The `analyze.py` script located in the `automated_test` folder can match the sound starting/stopping to associate the moments in time between wav files.
 
 ```sh
 python3 ./automated_test/analyze.py <reference_file> <recorded_file>
@@ -148,17 +154,17 @@ The reference recordings and calculations can be found in the `doc/base-system-l
 ## Example measurements
 
 This section contains example audio latency measurements, for better visualization of the process.
-We conducted masurement of two systems:
+Measurements were performed on two systems:
 
-* `Bluetooth 5.2` headset with a PC
-* `Google Meet` connection via WiFi
+* Bluetooth 5.2 headset with a PC
+* Google Meet connection via WiFi
 
-### `Bluetooth 5.2` headset latency measurement
+### Bluetooth 5.2 headset latency measurement
 
 The device under test consisted of:
 
-* PC with `Debian 12` system equipped with `Bluetooth` card
-* A wireless headset (speakers + microphone) compatible with `Bluetooth 5.2` 
+* PC with Debian 12 system with a Bluetooth card
+* A wireless headset (speakers + microphone) compatible with Bluetooth 5.2
 
 :::{figure-md}
 ![](img/headset-testing-setup.png)
@@ -166,7 +172,7 @@ The device under test consisted of:
 Wireless headset testing setup
 :::
 
-The PC was configured to loopback the audio from the `headset's microphone` back to `headset's speakers`.
+The PC was configured to loopback the audio from the headset's microphone back to the headset's speakers.
 For this specific configuration following command was used:
 
 ```sh
@@ -182,7 +188,7 @@ python3 play_capture.py --duration=1.5 --volume-play 30000 1s_44100_2ch_16b.wav 
 This recording was later used to remove overlap between the playback gathered directly by the latency tester microphone and the playback passed through the device under test.
 
 
-* Audio latency measurement recordings - with the device under test active ie.: the headset was un-muted and it's microphone was on:
+* Audio latency measurement recordings - with the device under test active ie.: the headset was un-muted and its microphone was on:
 
 ```sh
 python3 play_capture.py --duration=1.5 --volume-play 30000 1s_44100_2ch_16b.wav --out-wav out1.wav
@@ -190,7 +196,7 @@ python3 play_capture.py --duration=1.5 --volume-play 30000 1s_44100_2ch_16b.wav 
 In total, 10 recordings were made
 
 
-* Background removal - The recorded `background.wav` was removed from the audio latency measurement recordings, using `Short-Time Fourier Transform`.
+* Background removal - The recorded `background.wav` was removed from the audio latency measurement recordings, using Short-Time Fourier Transform.
 
 ```sh
 python3 remove_background.py out1.wav background.wav out1-clean.wav
@@ -216,14 +222,15 @@ Recordings from that test can be found in the `doc/bt-headset-latency-measuremen
 Recorded and processed audio waveforms
 :::
 
-### `Google Meet` connection latency measurement
+### Google Meet connection latency measurement
 
 The device under test consisted of:
 
-* PC with Debian 12 system and `Google Meet` running in a `Google Chrome` web browser
-* An Android smartphone with `Google Meet` application
+* PC with Debian 12 system and Google Meet running in a Google Chrome web browser
+* An Android smartphone with the Google Meet application
 
-Both devices were connected to a `Google Meet` meeting via the same Wi-Fi network. A speaker connected to the [audio latency tester board](https://github.com/antmicro/audio-latency-tester-board) was placed in front of the smartphone, while a microphone board was attached to headphones connected to the PC.
+Both devices were connected to a Google Meet meeting via the same Wi-Fi network.
+A speaker connected to the [audio latency tester board](https://github.com/antmicro/audio-latency-tester-board) was placed in front of the smartphone, while a microphone board was attached to headphones connected to the PC.
 
 10 recordings were made using:
 

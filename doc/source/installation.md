@@ -1,7 +1,8 @@
 # Installation and setup
 
 ## Installing dependencies
-[`CMake (3.20 or newer)`](https://cmake.org/cmake/help/latest/release/3.20.html), [`Python3`](https://www.python.org/) and the [`ARM toolchain`](https://developer.arm.com/downloads/-/gnu-rm) are required to build the project.
+
+[CMake (3.20 or newer)](https://cmake.org/cmake/help/latest/release/3.20.html), [Python3](https://www.python.org/) and an [ARM toolchain](https://developer.arm.com/downloads/-/gnu-rm) are required to build the project.
 
 To install the dependencies on Debian Bookworm, run:
 
@@ -16,7 +17,7 @@ git clone https://github.com/antmicro/audio-latency-tester.git
 cd audio-latency-tester
 ```
 
-To run the project, it is also required to install following `Python` packages:
+To run the project, it is also required to install following Python packages:
 
 ```sh
 python3 -m venv .venv
@@ -39,7 +40,6 @@ The build system uses environment variables to find these repositories:
 export PICO_SDK_PATH=$(pwd)/pico-sdk
 export PICO_EXTRAS_PATH=$(pwd)/pico-extras
 ```
-
 
 To build the project, run:
 
@@ -79,11 +79,8 @@ MCU-1 USB-C connection
 
 
 * Press and hold the `MCU-1 BOOTSEL` ([`SW2`](#SW2)) button.
-
 * Press and release the `MCU-1 RST` ([`SW1`](#SW1)) button.
-
 * Release the `MCU-1 BOOTSEL` button.
-
 * With `lsusb`, you should see that the device is recognized as a USB device `Raspberry Pi RP2 Boot`
 
 ```console
@@ -104,6 +101,7 @@ Loading into Flash:   [==============================]  100%
 
 The device was rebooted to start the application.
 ```
+
 * With `lsusb`, you should see that the device is recognized as a USB device with ID `cafe:4010`
 
 ```console
@@ -123,11 +121,8 @@ MCU-2 USB-C connection
 
 
 * Press and hold the `MCU-2 BOOTSEL` ([`SW4`](#SW4)) button.
-
 * Press and release the `MCU-2 RST` ([`SW3`](#SW3)) button.
-
 * Release the `MCU-2 BOOTSEL` button.
-
 * With `lsusb`, you should see that the device is recognized as a USB device `Raspberry Pi RP2 Boot`
 
 ```console
@@ -140,6 +135,7 @@ Bus 001 Device 101: ID 2e8a:0003 Raspberry Pi RP2 Boot
 ```sh
 picotool load -x build/audio_out/rp2040-i2s-timestamp.uf2
 ```
+
 * With `lsusb`, you should see that the device is recognized as a USB device with ID `cafe:4011`
 
 ```console
