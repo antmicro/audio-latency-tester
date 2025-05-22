@@ -2,7 +2,7 @@
 
 In order to use the scripts described in this chapter, you need the [Audio latency tester board](https://github.com/antmicro/audio-latency-tester-board) flashed with firmware from the [`flashing hardware`](./installation.md#flashing-hardware) section.
 
-The [scripts]((https://github.com/antmicro/audio-latency-tester)) require Python packages from the [installing dependencies](./installation.md#installing-dependencies) chapter and sufficient access rights to the connected USB devices.
+The [scripts](https://github.com/antmicro/audio-latency-tester) require Python packages from the [installing dependencies](./installation.md#installing-dependencies) chapter and sufficient access rights to the connected USB devices.
 
 ## Hardware preparation
 
